@@ -1,0 +1,11 @@
+/haarcascade_frontalface_default.xml
+/yolo/yolov7-d6.onnx 
+/yolo/yolov7-tiny.onnx 
+/yolo/yolov7-w6.onnx 
+/yolo/yolov7.onnx 
+/yolo/yolov7x.onnx 
+/yolo/yolov8n-face.onnx
+/yolo/build
+/tracking/c++/build
+/c++/build
+/images
