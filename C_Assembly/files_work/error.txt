@@ -1,0 +1,14 @@
+INFO Application started
+WARNING Disk space low
+WARNING Disk space low
+WARNING Disk space low
+ERROR Unable to connect to database
+INFO User logged in
+ERROR Invalid input received
+ERROR Invalid input received
+INFO Application stopped:
+ERROR Invalid input received
+ERROR Invalid input received
+ERROR Invalid input received
+
+    

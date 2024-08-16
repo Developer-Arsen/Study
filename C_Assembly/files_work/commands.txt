@@ -1,0 +1,2 @@
+ 1: man man 
+ 2: man ls 

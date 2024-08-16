@@ -1,0 +1,77 @@
+#include <stdio.h> // naxatesvac e C standard library i Input output functionery ogtagorcelu hamar
+#include <stdlib.h> // C standar library i memory i het ashxatanq katarelu functionery ogtagorcelu hamar 
+#include <unistd.h> // Portable Operating System Interface (POSIX) i koxmic interface a tramadrum UNIX yntaniqi OS neri het ashxatelu hamar stexcvela IEEE hamalsarani koxmic 
+#include <singal.h> // UNIX\LINUX i hamar singal ner handle anelu hamar
+#include <sys/wait.h> // wait i functionernen stex
+#include <sys/stat.h> // stat i functionerna stex
+#include <sys/type.h> // pid_t off_t sranq en stex;
+
+incha process y
+PCB -ira andamnery 
+user-id neri tesaknery effective, real , file, 
+process states  TASK_RUN stopped traced
+
+wait, waitpid - spasuma vor process y state poxi
+wait stanuma int * vor mey pahi status y 
+waitPid stanuma (pidn, int* vor mejy qci statusy, u flag);
+flag nery - 
+WNOHAND - mi hat sax child eri vrov anci ete vochmek chi poxel state y eli mi nayi
+WUNTRACED - ete process y stop a exel u traced vichaky chi veradarca et child in
+WCONTINUED - ete process stop er exel u noric continue a exel stanal SIGCONT signaly
+
+ete pid > 0 apa spasi konkret et pid ov tvac child in 
+ete pid havasara 0 uremn enqan spasi minchev ira proces group i meji child eric meky 
+ete pid = -1 apa lyuboy child i change i spasi
+ete pid < -1 uremn pid verabervuma group id n enqan ksapsi minchev ira tvac group id ic meky state y chpoxi
+
+exit statusnery 
+WIFEXITED - true a talis ete process y normal a avartvel 
+WEXITSSTAUS - talisa avartvac proces i status y verji 8 bity 
+WIFSIGNALED - ete signalov a avartve process y talisa true
+WTERMSIG - veradarcnuma en signali hamary vory patchara handisace process i avartman
+WCOREDUMP - true kta ete core dump a texi unece partadir stugel WIFSIGNALED nor heto es , vorosh UNIX OS nerum es WCOREDUMP y goyutyun chuni
+WIFSTOPPED - kta true ete inchvor signal process in kangnacrela
+WSTOPSIG - veradarcnuma en signal i hamary vory patchara handisace stop linelu
+WIFCONTINUED -  true kta ete process sstacela SIGCONT signal
+
+fork & exec yntaniq getpid getppid getuid 
+exit atexit onexit
+wait i tesaknery 
+process i avartman vichaknery  WIFexitied WIFSIGNAL EEXITSTATUS 
+
+process scheulder 
+
+real-time process 
+normal process staticprio normal prio rt_priority shed_fifo shed_rr
+CFS method completly fair scgeduler 
+nice value
+normal process polices  sched normal sched batch sched idle 
+CAP_SYS_NICE
+setPriority get priority
+sched_get_schedule
+sched_set_schedule
+sched_get_priority_max
+sched_rr_get_interval
+sched_yield
+cpu set_t set_t
+CPU_ZERO CPU_ISSET CPU_CLR CPU_ISSET
+sched_get_affinity oncpu cpu cpu_mask task structi mej en ays angamnery 
+execption tesaknery interupt (hardware) asynchnornous trap synchronous fault abort 
+signal handler types typdef void(*sigaction)(int, struct siginfo*, void*) 
+sication  SA_RESTART SA_NOCLDSTOP SA_SIGINFO SA_STACK
+sigset_t set sigsetempty sigfillset sigaddset sigdelset sigismember 
+
+
+sigpromask SIG_BLOCK SIG_UNBLOCK SIG_SETMASK
+
+alarm pause kill raise 
+information node fileri hamar 
+hard link y irenic nerkayacnuma tvyal file i inodi hascen 
+files_struct files* fdtable 
+open, creat O_RD_ONLY O_WR_ONLY O_RDWR O_APPEND O_ASYNC 
+write
+fsync sync fdatasynch close 
+lseek truncate pwrite pread, select, pselect poll, ppoll ioctl
+
+
+

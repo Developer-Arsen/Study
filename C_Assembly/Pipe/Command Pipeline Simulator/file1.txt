@@ -1,0 +1,5 @@
+total 20
+-rwxrwxr-x 1 arsen arsen 16304 Jun 24 12:07 a.out
+-rw-rw-r-- 1 arsen arsen     0 Jun 24 12:07 file1.txt
+-rw-rw-r-- 1 arsen arsen   857 Jun 24 12:06 shell.c
+-rw-rw-r-- 1 arsen arsen     0 Jun 24 12:06 test.txt
