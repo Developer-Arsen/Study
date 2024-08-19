@@ -93,8 +93,32 @@ void printMessage(std::string &&src)
     std::cout << src << std::endl;
 }
 
+
+class unc {
+    public:
+        unc();
+    
+    private:
+        unc(const unc&);
+        unc& operator=(const unc&);
+};
+
+class cosnttest  {
+    public:
+        cosnttest();
+        ~cosnttest();
+
+    private:
+        int age;
+};
+
 int main()
 {
+    cosnttest obj;
+    cosnttest asd;
+
+    obj = asd;
+
     // try
     // {
     //     Point obj(1);
@@ -107,15 +131,15 @@ int main()
     // {
     //     std::cout << e.what() << std::endl;
     // }
-    try
-    {
-        std::string h{"esiiim"};
-        printMessage(h);
-    }
-    catch (std::invalid_argument &e)
-    {
-        std::cout << e.what() << std::endl;
-    }
+    // try
+    // {
+    //     std::string h{"esiiim"};
+    //     printMessage(h);
+    // }
+    // catch (std::invalid_argument &e)
+    // {
+    //     std::cout << e.what() << std::endl;
+    // }
     // Point obj2(obj);
     // Point point {};
     // auto ptr {std::make_unique<Point>(120, 20, 40)};
