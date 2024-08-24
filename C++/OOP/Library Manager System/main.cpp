@@ -15,9 +15,9 @@ int main () {
     std::shared_ptr<Author> obj = std::make_shared<Author>("Arsen Mkhitaryan");
     authors.push_back(obj);
 
-    std::shared_ptr<Book> book1 = std::make_shared<Book>("first girq", authors);
-    std::shared_ptr<Book> book2 = std::make_shared<Book>("second girq", authors);
-    std::shared_ptr<Book> book3 = std::make_shared<Book>("third girq", authors);
+    Book * book1 (new Book("first girq", authors));
+    Book * book2 (new Book("second girq", authors));
+    Book * book3 (new Book("third girq", authors));
 
     lib.add_book(book1);
     lib.add_book(book2);
