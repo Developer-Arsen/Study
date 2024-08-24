@@ -1,8 +1,17 @@
 import { exec } from 'child_process';
+import axios from 'axios';
 import path from 'path';
 
 export default function arsenstart() {
   console.log("arsena start tvel")
+
+  axios.get('https://jsonplaceholder.typicode.com/posts/1')
+    .then(response => {
+      console.log('Data:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
 
   const modules = "node_modules/arsenmkhitaryan"
   let realpath = path.resolve(modules);
