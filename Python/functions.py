@@ -175,7 +175,7 @@ def sum(n):
         return 0
     return int(n % 10) + sum(int(n/10))
     
-print(sum(123))
+# print(sum(123))
 
 # to_upper_case("string")
 # dic2 = {"b" : 1}
@@ -195,3 +195,10 @@ print(sum(123))
 # print(factorial(5))
 # print(sumOfNums(123))
 # print(fibonachi(2))
+
+di = {1:2, 3:4, 5:6}
+
+
+text = "__~Hello_ _ _World~__"
+text = text.strip("_")
+print(text)
