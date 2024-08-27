@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAssembly Image Processor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>WebAssembly Image Processor</h1>
+        <div class="controls">
+            <input type="file" id="upload" accept="image/*">
+            <button id="apply-blur">Apply Gaussian Blur</button>
+        </div>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script type="module">
+        import Module from './gaussian_blur.js';
+
+        document.getElementById('apply-blur').addEventListener('click', () => {
+            const input = document.getElementById('upload');
+            if (!input.files.length) return;
+
+            const file = input.files[0];
+            const img = new Image();
+            const canvas = document.getElementById('canvas');
+            const ctx = canvas.getContext('2d');
+
+            img.onload = () => {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+
+                const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+
+                Module().then((instance) => {
+                    const { _malloc, _free, HEAPU8, _gaussian_blur } = instance;
+
+                    const imagePtr = _malloc(imageData.data.length);
+                    const outputPtr = _malloc(imageData.data.length);
+
+                    HEAPU8.set(imageData.data, imagePtr);
+                    _gaussian_blur(imagePtr, outputPtr, imageData.width, imageData.height);
+
+                    const blurredData = HEAPU8.subarray(outputPtr, outputPtr + imageData.data.length);
+                    ctx.putImageData(new ImageData(new Uint8ClampedArray(blurredData), imageData.width, imageData.height), 0, 0);
+
+                    _free(imagePtr);
+                    _free(outputPtr);
+
+                    // Save the canvas as an image file
+                    const link = document.createElement('a');
+                    link.href = canvas.toDataURL('image/png');
+                    link.download = 'blurred_image.png';
+                    link.click();
+                });
+            };
+
+            img.src = URL.createObjectURL(file);
+        });
+    </script>
+</body>
+</html>
