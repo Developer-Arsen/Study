@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebAssembly Image Processor</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>WebAssembly Image Processor</h1>
+        <div class="controls">
+            <input type="file" id="upload" accept="image/*">
+            <button id="apply-blur">Apply Gaussian Blur</button>
+        </div>
+        <canvas id="canvas"></canvas>
+    </div>
+
+    <script src="gaussian_blur.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

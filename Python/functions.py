@@ -154,13 +154,13 @@ def isPolindrom(n : int) -> bool:
     s = str(n)
     return s == s[::-1]
     
-def range(n : int) -> None:
-    if n == 0:
-        return
+# def range(n : int) -> None:
+#     if n == 0:
+#         return
     
-    print(n)
-    n -= 1
-    range(n)
+#     print(n)
+#     n -= 1
+#     range(n)
     
 def a (arr, n):
     if n == len(arr):
@@ -195,10 +195,62 @@ def sum(n):
 # print(factorial(5))
 # print(sumOfNums(123))
 # print(fibonachi(2))
+# Create a 3x3 matrix
+# matrix = [
+#     [1, 2, 3],  
+#     [4, 5, 6],
+#     [7, 8, 9]
+# ]
 
-di = {1:2, 3:4, 5:6}
+matrix = [
+[0, 'M', 0, 'M', 0],
+[0, 0, 'M', 0, 0 ],
+[0, 0, 0, 0, 0 ],
+['M', 'M', 0, 0, 0],
+[0, 0, 0, 'M', 0 ],
+]
+
+def sumsum(i, j):
+    sum = 0
+    
+    istart = i
+    iend = i + 2
+    
+    jstart = j
+    jend = j + 2
+    
+    istep = 1
+    jstep = 1
+    
+    # if j >= len(matrix[i]) - 1:
+    #     jstart, jend = jend -1, jstart
+    #     istep = -1
+        
+    # if i >= len(matrix) -1:
+    #     istart, iend = iend -1 , istart
+    #     jstep = -1
+    
+    for a in range(istart, iend):
+        print(a)
+        for b in range(jstart, jend):
+            if matrix[a][b] == "M":
+                sum += 1
+    return sum    
+
+for i in range(len(matrix)):
+    for j in range(len(matrix[i])):
+        if matrix[i][j] == 0:
+            matrix[i][j] = sumsum(i, j)
 
 
-text = "__~Hello_ _ _World~__"
-text = text.strip("_")
-print(text)
+for i in range(len(matrix)):
+    for j in range(len(matrix[i])):
+        print(matrix[i][j], end="")
+    print()
+
+
+# 0 M 0 M 0 	1 M 3 M 1 
+# 0 0 M 0 0   	1 2 M 2 1 
+# 0 0 0 0 0    	2 3 2 1 0
+# M M 0 0 0  	M M 2 1 1 
+# 0 0 0 M 0   	2 2 2 M 1
