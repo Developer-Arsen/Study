@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 import { MongoClient } from "mongodb"
 import { body, validationResult } from "express-validator";
 
-const uri = "mongodb://127.0.0.1:27017";
+const uri = "mongodb://127.0.0.1:27017/arsen";
 const client = await new MongoClient(uri).connect();
 const db = client.db("arsen");
 const collection = db.collection("products");

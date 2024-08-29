@@ -3,7 +3,7 @@ const form = document.getElementById('productForm');
 let fetchurl = "http://localhost:12345/products" 
 
 if (window.location.hostname !== 'localhost') {
-    fetchurl = window.location.hostname;
+    fetchurl = window.location.origin;
 } 
 
 
@@ -11,7 +11,7 @@ const start = () => {
     fetch(fetchurl)
     .then(response => {
         if (!response.ok) {
-            console.log("response failed");
+            showNotification(response.message, "error");
         }
         return response.json();
     })
