@@ -2,6 +2,11 @@ let products = [];
 const form = document.getElementById('productForm');
 const fetchurl = "http://localhost:12345/products" 
 
+if (window.location.hostname !== 'localhost') {
+    fetchurl = window.location.hostname;
+} 
+
+
 const start = () => {
     fetch(fetchurl)
     .then(response => {
