@@ -1,14 +1,26 @@
 import express from "express"
-import { MongoClient } from "mongodb"
 import bodyParser from "body-parser";
+import cors from "cors"
+import path from "path"
+import multer from "multer";
+import { fileURLToPath } from 'url';
+import { MongoClient } from "mongodb"
 import { body, validationResult } from "express-validator";
 
-const uri = "mongodb://localhost:27017";
+const uri = "mongodb://127.0.0.1:27017";
 const client = await new MongoClient(uri).connect();
 const db = client.db("arsen");
 const collection = db.collection("products");
 
 const app = express();
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use(cors())
+app.use(express.static(path.join(__dirname, "public")))
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
 
 const productValidationRules = () => {
     return [
@@ -21,13 +33,22 @@ const productValidationRules = () => {
 
         body('price')
             .isFloat({ gt: -1, lt: 1000 })
-            .withMessage('Price must be between 0 and 999.99')
+            .withMessage('Price must be between 0 and 999.99'),
+
+        body('url')
+            .trim()
+            .isLength({ min: 1 })
+            .withMessage('URL is required')
+            .isLength({ max: 50 })
+            .withMessage('URL must be at most 50 characters long')
     ];
 };
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
 
+app.get("/", () => {
+    const path = path.join(__dirname, "public", "index.html")
+    res.sendFile(path)
+})
 
 app.get("/products", async (req, res) => {
     try {
@@ -60,9 +81,9 @@ app.post("/products", productValidationRules(), async (req, res) => {
         return res.status(400).json({ errors: errors.array() })
     }
 
-    const { name, price } = req.body;
+    const { name, price, url } = req.body;
     try {
-        const result = await collection.insertOne({ name, price });
+        const result = await collection.insertOne({ name, price, url });
 
         if (result.acknowledged) {
             return res.status(201).send({
@@ -83,12 +104,7 @@ app.post("/products", productValidationRules(), async (req, res) => {
             error: error.message,
         });
     }
-
-
 })
 
-
-
-
-app.listen(12345);
+app.listen(3006);
 

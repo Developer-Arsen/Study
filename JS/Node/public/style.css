@@ -1,0 +1,38 @@
+.product-title {
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.product-card {
+    text-align: center;
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+.related-products-title {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.product-form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+}
+
+.product-form-container h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}

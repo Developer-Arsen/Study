@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Product List with Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container my-5">
+        <h2 class="related-products-title">Related Products</h2>
+        <div id="productList" class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+        </div>
+    </div>
+
+    <div class="container product-form-container">
+        <h3>Add New Product</h3>
+        <form id="productForm">
+            <div class="mb-3">
+                <label for="productName" class="form-label">Product Name</label>
+                <input type="text" class="form-control" id="productName" required>
+            </div>
+            <div class="mb-3">
+                <label for="productPrice" class="form-label">Product Price</label>
+                <input type="number" class="form-control" id="productPrice" required>
+            </div>
+            <div class="mb-3">
+                <label for="url" class="form-label">Product Image Url</label>
+                <input type="text" class="form-control" id="url" required>
+            </div>
+            <!-- <div class="mb-3">
+                <label for="productImage" class="form-label">Product Image</label>
+                <input type="file" class="form-control" id="productImage" accept="image/*" required>
+            </div> -->
+            <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+    </div>
+
+    <footer class="text-center py-4 bg-dark text-white">
+        <p>This site was created by Arsen Mkhitaryan</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./index.js"></script>
+    <script>
+
+
+        //     if (productImage) {
+        //         const reader = new FileReader();
+        //         reader.onload = function(e) {
+        //             const newProduct = {
+        //                 name: productName,
+        //                 price: productPrice,
+        //                 image: e.target.result
+        //             };
+
+        //             products.push(newProduct);
+        //             renderProducts(products);
+        //             form.reset();
+        //         };
+        //         reader.readAsDataURL(productImage);
+        //     } else {
+        //         alert('Please select an image');
+        //     }
+        // });
+    </script>
+</body>
+
+</html>
