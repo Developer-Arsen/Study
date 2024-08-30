@@ -2,17 +2,18 @@ import express from "express"
 import bodyParser from "body-parser";
 import cors from "cors"
 import path from "path"
+import dotenv from "dotenv"
 import multer from "multer";
 import { fileURLToPath } from 'url';
 import { MongoClient } from "mongodb"
 import { body, validationResult } from "express-validator";
 
-const uri = "mongodb://127.0.0.1:27017/arsen";
-const client = await new MongoClient(uri).connect();
-const db = client.db("arsen");
-const collection = db.collection("products");
-
 const app = express();
+
+const mongouri = process.env.DATABASE_URI;
+const client = await new MongoClient(mongouri).connect();
+const collection = client.collection("products");
+
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -106,5 +107,5 @@ app.post("/products", productValidationRules(), async (req, res) => {
     }
 })
 
-app.listen(3006);
+app.listen(12345);
 

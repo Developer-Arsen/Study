@@ -1,6 +1,6 @@
 let products = [];
 const form = document.getElementById('productForm');
-let fetchurl = "http://localhost:12345/products" 
+let fetchurl;
 
 if (window.location.hostname !== 'localhost') {
     fetchurl = window.location.origin;
@@ -11,7 +11,7 @@ const start = () => {
     fetch(fetchurl)
     .then(response => {
         if (!response.ok) {
-            showNotification(response.message, "error");
+            showNotification(response.json().message, "error");
         }
         return response.json();
     })
