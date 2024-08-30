@@ -87,7 +87,9 @@ const renderProducts = () => {
         const productHTML = `
             <div class="col mb-4">
                 <div class="card product-card">
+                    <div class="img-div">
                     <img src="${product.url}" class="card-img-top" alt="${product.name}">
+                    <div>
                     <div class="card-body">
                         <p class="product-title">${product.name}</p>
                         <p class="product-price">$${product.price + "$"}</p>

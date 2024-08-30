@@ -18,6 +18,11 @@
     transform: translateY(-10px);
 }
 
+.card-img-top {
+    max-height: 120px;
+    object-fit: cover;
+}
+
 .related-products-title {
     margin-bottom: 30px;
     text-align: center;
