@@ -8,7 +8,9 @@ import { fileURLToPath } from 'url';
 import { MongoClient } from "mongodb"
 import { body, validationResult } from "express-validator";
 
+dotenv.config();
 const app = express();
+
 
 const mongouri = process.env.DATABASE_URI;
 const client = await new MongoClient(mongouri).connect();
