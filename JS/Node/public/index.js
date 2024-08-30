@@ -1,24 +1,26 @@
-let products = [];
+let productList = [];
 const form = document.getElementById('productForm');
-let fetchurl;
-
-if (window.location.hostname !== 'localhost') {
-    fetchurl = window.location.origin;
-} 
+let fetchurl = window.location.origin + "/products";
 
 
 const start = () => {
     fetch(fetchurl)
     .then(response => {
         if (!response.ok) {
+            
             showNotification(response.json().message, "error");
         }
         return response.json();
     })
     .then(data => {
-        showNotification(data.message);
-        products = data.data;
-        renderProducts(products)
+        if (data['data']) {
+            showNotification(data.message);
+            productList = data.data;
+            renderProducts()
+        }
+        else {
+            showNotification(data.message);
+        }
     })
     .catch(e => {
         showNotification(e, "error");
@@ -77,7 +79,7 @@ const showNotification= (message, type = 'success') => {
     }, 5000);
 }
 
-const renderProducts = (productList) => {
+const renderProducts = () => {
     const productListElement = document.getElementById('productList');
     productListElement.innerHTML = '';
 
@@ -114,10 +116,20 @@ form.addEventListener("submit", (event) => {
         body: JSON.stringify(data)
     })
     .then(response => {
-        console.log(response);
+        return response.json()
+    })
+    .then(data => {
+        if (data['data'] ) {
+            console.log(data);
+            showNotification(data.message);
+            productList.push(data.data)
+            renderProducts();
+        } else {
+            showNotification(data.message, "error");
+        }
     })
     .catch(e => {
-        console.log(e);
+        showNotification(e, "error");
     })
 })
 

@@ -9,13 +9,14 @@ import { MongoClient } from "mongodb"
 import { body, validationResult } from "express-validator";
 
 dotenv.config();
+
 const app = express();
+const PORT = process.env.PORT;
+const DB_NAME = process.env.DB_NAME;
 
-
-const mongouri = process.env.DATABASE_URI;
+const mongouri = process.env.DATABASE_URI + "/" + DB_NAME;
 const client = await new MongoClient(mongouri).connect();
-const collection = client.collection("products");
-
+const collection = client.db(DB_NAME).collection("products");
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -42,7 +43,7 @@ const productValidationRules = () => {
             .trim()
             .isLength({ min: 1 })
             .withMessage('URL is required')
-            .isLength({ max: 50 })
+            .isLength({ max: 250 })
             .withMessage('URL must be at most 50 characters long')
     ];
 };
@@ -63,15 +64,13 @@ app.get("/products", async (req, res) => {
                 data: result,
             });
         } else {
-            return res.status(404).send({
-                message: 'No products found.',
-                hint: 'Try adding some products first, then try again.',
+            return res.status(200).send({
+                message: 'No products found. Please add products to see them',
             });
         }
     } catch (error) {
         return res.status(500).send({
             message: 'An unexpected error occurred while fetching the products.',
-            suggestion: 'Please try again later or contact support if the problem persists.',
             error: error.message,
         });
     }
@@ -79,35 +78,31 @@ app.get("/products", async (req, res) => {
 
 app.post("/products", productValidationRules(), async (req, res) => {
     const errors = validationResult(req);
-
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() })
     }
-
+    
     const { name, price, url } = req.body;
     try {
         const result = await collection.insertOne({ name, price, url });
 
         if (result.acknowledged) {
+            const createdDocument = await collection.findOne({ _id: result.insertedId });
             return res.status(201).send({
-                message: ' Success! Your document has been beautifully inserted into our database.',
-                details: result,
+                message: ' Success! Your document has been inserted into our database.',
+                data: createdDocument,
             });
         } else {
             return res.status(500).send({
                 message: 'Oops! Something went wrong. We couldn’t save your document this time.',
-                hint: 'Please try again later or contact support.',
-                details: result,
             });
         }
     } catch (error) {
         return res.status(500).send({
             message: 'An unexpected error occurred while processing your request.',
-            suggestion: 'Our team is already notified. Please wait a moment and try again.',
-            error: error.message,
         });
     }
 })
 
-app.listen(12345);
+app.listen(PORT);
 
