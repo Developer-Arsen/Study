@@ -2,12 +2,15 @@ import React from "react";
 import { useForm } from "react-hook-form"
 import axios from "axios";
 
+
+const apiUrl = `${window.location.origin}/products`;
+
 const FormData = ({updatePorducts}) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
         try {
-            const response = await axios.post("http://127.0.0.1:3006/products", data, {
+            const response = await axios.post(apiUrl, data, {
                 headers: {
                     "Content-Type": "application/json"
                 }

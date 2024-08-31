@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import Product from "./Product";
 
+const apiUrl = `${window.location.origin}/products`;
 
 const ProductsList = ({ hasChanged }) => {
     const [products, setProducts] = useState([]);
-    const url = "http://127.0.0.1:3006/products"
 
     useEffect(() => {
         async function fetchData() {
             try {
-                let response = await fetch(url);
+                let response = await fetch(apiUrl);
                 response = await response.json();
                 setProducts(response?.data);
             } catch (error) {
