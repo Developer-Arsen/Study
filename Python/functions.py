@@ -202,25 +202,25 @@ def sum(n):
 #     [7, 8, 9]
 # ]
 
-matrix = [
-[0, 'M', 0, 'M', 0],
-[0, 0, 'M', 0, 0 ],
-[0, 0, 0, 0, 0 ],
-['M', 'M', 0, 0, 0],
-[0, 0, 0, 'M', 0 ],
-]
+# matrix = [
+# [0, 'M', 0, 'M', 0],
+# [0, 0, 'M', 0, 0 ],
+# [0, 0, 0, 0, 0 ],
+# ['M', 'M', 0, 0, 0],
+# [0, 0, 0, 'M', 0 ],
+# ]
 
-def sumsum(i, j):
-    sum = 0
+# def sumsum(i, j):
+#     sum = 0
     
-    istart = i
-    iend = i + 2
+#     istart = i
+#     iend = i + 2
     
-    jstart = j
-    jend = j + 2
+#     jstart = j
+#     jend = j + 2
     
-    istep = 1
-    jstep = 1
+#     istep = 1
+#     jstep = 1
     
     # if j >= len(matrix[i]) - 1:
     #     jstart, jend = jend -1, jstart
@@ -230,24 +230,41 @@ def sumsum(i, j):
     #     istart, iend = iend -1 , istart
     #     jstep = -1
     
-    for a in range(istart, iend):
-        print(a)
-        for b in range(jstart, jend):
-            if matrix[a][b] == "M":
-                sum += 1
-    return sum    
+#     for a in range(istart, iend):
+#         print(a)
+#         for b in range(jstart, jend):
+#             if matrix[a][b] == "M":
+#                 sum += 1
+#     return sum    
 
-for i in range(len(matrix)):
-    for j in range(len(matrix[i])):
-        if matrix[i][j] == 0:
-            matrix[i][j] = sumsum(i, j)
+# for i in range(len(matrix)):
+#     for j in range(len(matrix[i])):
+#         if matrix[i][j] == 0:
+#             matrix[i][j] = sumsum(i, j)
 
 
-for i in range(len(matrix)):
-    for j in range(len(matrix[i])):
-        print(matrix[i][j], end="")
-    print()
+# for i in range(len(matrix)):
+#     for j in range(len(matrix[i])):
+#         print(matrix[i][j], end="")
+#     print()
 
+
+
+a = (1,2,3,4)
+b = (1,2,3,4)
+
+print(a is b)
+print(id(a))
+print(id(b))
+
+# import itertools
+
+# for i in itertools.count():
+#     print(f"Loop iteration {i}")
+#     user_input = input("Type 'exit' to stop: ")
+#     if user_input.lower() == 'exit':
+#         print("Exiting the loop.")
+#         break
 
 # 0 M 0 M 0 	1 M 3 M 1 
 # 0 0 M 0 0   	1 2 M 2 1 

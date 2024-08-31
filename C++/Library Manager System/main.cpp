@@ -23,11 +23,11 @@ int main () {
     lib.add_book(book2);
     lib.add_book(book3);
 
-
-    lib.list_books();
-    lib.view_book(2);
-    lib.view_book(1);
-    lib.delete_book(1);
-    lib.list_books();
+    std::cout << lib << std::endl;
+    // lib.list_books();
+    // lib.view_book(2);
+    // lib.view_book(1);
+    // lib.delete_book(1);
+    // lib.list_books();
 
 }

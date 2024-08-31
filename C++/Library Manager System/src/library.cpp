@@ -120,3 +120,16 @@ Book *Library::find_book_by_id(size_t id) const
 
     return nullptr;
 }
+
+std::ostream &operator<<(std::ostream &os, const Library &library)
+{
+    os << "------------BOOKS-----------" << std::endl;
+    for (size_t i = 0; i < library.m_books.size(); i++)
+    {
+        os << "Id:" << library.m_books[i]->get_id() << std::endl;
+        os << "Title: " << library.m_books[i]->get_title() << std::endl;
+    }
+    os << "---------BOOKS END-----------" << std::endl;
+
+    return os;
+}

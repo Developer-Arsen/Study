@@ -49,9 +49,9 @@ const productValidationRules = () => {
 };
 
 
-app.get("/", () => {
-    const path = path.join(__dirname, "public", "index.html")
-    res.sendFile(path)
+app.get("/", (req, res) => {
+    let pathtofile = path.join(__dirname, "public", "index.html")
+    res.sendFile(pathtofile)
 })
 
 app.get("/products", async (req, res) => {

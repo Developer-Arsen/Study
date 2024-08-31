@@ -31,6 +31,8 @@ public:
     std::optional<Book *> search_by_title(const std::string &) const;
     void list_books() const;
     int get_books_count() const;
+
+    friend std::ostream &operator<<(std::ostream &os, const Library &library);
 };
 
 #endif
