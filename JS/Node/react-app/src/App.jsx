@@ -1,19 +1,15 @@
-import React from "react";
-import { useState } from "react";
-
+import React, { useState } from "react";
 import Footer from "./components/Footer";
 import ProductsList from "./components/ProductsList";
-import FormData from "./components/FormData";
+import ProductFormData from "./components/ProductFormData";
 
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import SumComponent from "./Sum";
-
 
 const App = () => {
   const [hasChanged, setHasChanged] = useState(false);
 
-  const updatePorducts = () => {
+  const updateProducts = () => {
     setHasChanged(!hasChanged);
   }
 
@@ -23,10 +19,9 @@ const App = () => {
         <h2 className="related-products-title">Related Products</h2>
         <ProductsList hasChanged={hasChanged} />
       </div>
-      <FormData updatePorducts={updatePorducts}/>
+      <ProductFormData updateProducts={updateProducts} />
       <Footer />
     </>
-
   );
 }
 

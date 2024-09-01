@@ -6,6 +6,18 @@
 
 Library::Library() : m_book_count{0} {}
 Library::Library(const std::vector<Book *> &books) : m_books{books}, m_book_count{books.size()} {}
+
+Library::Library(const Library& library) 
+    : Library{}
+{
+    std::cout <<library.m_book_count << std::endl;
+    for (size_t i = 0; i < library.m_book_count; i++)
+    {
+        Book * ptr = new Book(*library.m_books[i]);
+        add_book(ptr);
+    }
+}
+
 Library::~Library()
 {
     for (size_t i = 0; i < m_books.size(); i++)
@@ -20,6 +32,7 @@ void Library::add_book(Book *book)
     book->set_id(m_book_index);
     m_books.push_back(book);
     m_book_index++;
+    m_book_count++;
 }
 
 void Library::view_book(size_t id) const
@@ -73,6 +86,9 @@ void Library::delete_book(size_t id)
     }
 
     delete tmp;
+    m_book_count--;
+    m_book_index--;
+    
 }
 
 void Library::list_books() const

@@ -1,22 +1,28 @@
 import React from "react";
-import { useForm } from "react-hook-form"
+import { useForm } from "react-hook-form";
 import axios from "axios";
 
+const protocol = window.location.protocol;
+const hostname = window.location.hostname;
+const protocolAndHostname = `${protocol}//${hostname}`;
+const addProduct = protocolAndHostname + ":3006/products";
 
-const apiUrl = `${window.location.origin}/products`;
-
-const FormData = ({updatePorducts}) => {
+const ProductFormData = ({ updateProducts }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
+        const formData = new FormData();
+
+        formData.append("image", data.image[0]);
+        formData.append("name", data.name);
+        formData.append("price", data.price);
         try {
-            const response = await axios.post(apiUrl, data, {
+            await axios.post(addProduct, formData, {
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "multipart/form-data"
                 }
             });
-            console.log("Product added successfully:", response.data);
-            updatePorducts();
+            updateProducts();
         } catch (error) {
             console.error("There was an error adding the product:", error);
         }
@@ -37,18 +43,14 @@ const FormData = ({updatePorducts}) => {
                     {errors.price && <p className="text-danger">{errors.price.message}</p>}
                 </div>
                 <div className="mb-3">
-                    <label htmlFor="url" className="form-label">Product Image Url</label>
-                    <input type="text" className="form-control" id="url" {...register("url", { required: "Url is required" })} />
-                    {errors.url && <p className="text-danger">{errors.url.message}</p>}
-                </div>
-                {/* <div className="mb-3">
                     <label htmlFor="productImage" className="form-label">Product Image</label>
-                    <input type="file" className="form-control" id="productImage" accept="image/*" required>
-                </div> */}
+                    <input type="file" className="form-control" id="productImage" accept="image/*" {...register("image", { required: "Image is required" })} />
+                    {errors.image && <p className="text-danger">{errors.image.message}</p>}
+                </div>
                 <button type="submit" className="btn btn-primary w-100">Submit</button>
             </form>
         </div>
     );
 };
 
-export default FormData;
+export default ProductFormData;

@@ -4,6 +4,7 @@ import cors from "cors"
 import path from "path"
 import dotenv from "dotenv"
 import multer from "multer";
+import { ObjectId } from "mongodb";
 import { fileURLToPath } from 'url';
 import { MongoClient } from "mongodb"
 import { body, validationResult } from "express-validator";
@@ -13,13 +14,17 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT;
 const DB_NAME = process.env.DB_NAME;
+const APP_URL = process.env.APP_URL;
 
 const mongouri = process.env.DATABASE_URI + "/" + DB_NAME;
 const client = await new MongoClient(mongouri).connect();
-const collection = client.db(DB_NAME).collection("products");
+const db = client.db(DB_NAME)
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 app.use(cors())
 app.use(express.static(path.join(__dirname, "public")))
@@ -56,7 +61,7 @@ app.get("/", (req, res) => {
 
 app.get("/products", async (req, res) => {
     try {
-        const result = await collection.find().toArray();
+        const result = await db.collection("products").find().toArray();
 
         if (result.length > 0) {
             return res.status(200).send({
@@ -76,26 +81,44 @@ app.get("/products", async (req, res) => {
     }
 });
 
-app.post("/products", productValidationRules(), async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() })
-    }
-    
-    const { name, price, url } = req.body;
-    try {
-        const result = await collection.insertOne({ name, price, url });
+app.post("/products", [upload.single('image')], async (req, res) => {
+    const photo = req.file.buffer;
+    let photoData;
+    if (photo) {
+        photoData = {
+            data: req.file.buffer,
+            contentType: req.file.mimetype,
+        };
+    };
 
-        if (result.acknowledged) {
-            const createdDocument = await collection.findOne({ _id: result.insertedId });
-            return res.status(201).send({
-                message: ' Success! Your document has been inserted into our database.',
-                data: createdDocument,
-            });
-        } else {
-            return res.status(500).send({
-                message: 'Oops! Something went wrong. We couldn’t save your document this time.',
-            });
+    // const errors = validationResult(req);
+    // if (!errors.isEmpty()) {
+    //     return res.status(400).json({ errors: errors.array() })
+    // }
+
+    const { name, price } = req.body;
+    try {
+        const photoRes = await db.collection("photos").insertOne({ photo });
+        if (photoRes.acknowledged) {
+            const obj = {
+                name,
+                price,
+                url: APP_URL + photoRes.insertedId,
+                photoId: photoRes.insertedId
+            }
+            const result = await db.collection("products").insertOne(obj);
+            const data = await db.collection("products").findOne(result.insertedId);
+
+            if (result.acknowledged) {
+                return res.status(201).send({
+                    message: ' Success! Your document has been inserted into our database.',
+                    data: data,
+                });
+            } else {
+                return res.status(500).send({
+                    message: 'Oops! Something went wrong. We couldn’t save your document this time.',
+                });
+            }
         }
     } catch (error) {
         return res.status(500).send({
@@ -103,6 +126,26 @@ app.post("/products", productValidationRules(), async (req, res) => {
         });
     }
 })
+
+app.delete("/products/:id", async (req, res) => {
+    const { id } = req.params;
+    let result = await db.collection("products").findOne({ _id: new ObjectId(id) });
+    const photodel = await db.collection("photos").deleteOne({ _id: result.photoId }); 
+    result = await db.collection("products").deleteOne({ _id: result._id });
+    res.send("okay");
+})
+
+app.get("/cdn/:id", async (req, res) => {
+    const { id } = req.params;
+    const photo = await db.collection("photos").findOne({ _id: new ObjectId(id) });
+
+    if (photo) {
+        res.setHeader("Content-Type", photo.photo.sub_type);
+        res.status(200).send(photo.photo.buffer);
+    } else {
+        res.send("not okay");
+    }
+});
 
 app.listen(PORT);
 
