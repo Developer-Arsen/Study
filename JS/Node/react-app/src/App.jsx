@@ -5,6 +5,7 @@ import ProductFormData from "./components/ProductFormData";
 
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import BlurImage from "./components/BlurImage";
 
 const App = () => {
   const [hasChanged, setHasChanged] = useState(false);
@@ -20,6 +21,7 @@ const App = () => {
         <ProductsList hasChanged={hasChanged} />
       </div>
       <ProductFormData updateProducts={updateProducts} />
+      <BlurImage/>
       <Footer />
     </>
   );
