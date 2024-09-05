@@ -1,29 +1,19 @@
-import React, { useState } from "react";
-import Footer from "./components/Footer";
-import ProductsList from "./components/ProductsList";
-import ProductFormData from "./components/ProductFormData";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Products from './components/Products';
+import ProductDetails from './components/ProductDetails';
 
 import './styles/App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import BlurImage from "./components/BlurImage";
 
 const App = () => {
-  const [hasChanged, setHasChanged] = useState(false);
-
-  const updateProducts = () => {
-    setHasChanged(!hasChanged);
-  }
-
   return (
-    <>
-      <div className="container my-5">
-        <h2 className="related-products-title">Related Products</h2>
-        <ProductsList hasChanged={hasChanged} />
-      </div>
-      <ProductFormData updateProducts={updateProducts} />
-      <BlurImage/>
-      <Footer />
-    </>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Products />} />
+        <Route path="/products/:productId" element={<ProductDetails />} />
+      </Routes>
+    </Router>
   );
 }
 

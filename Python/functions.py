@@ -248,15 +248,6 @@ def sum(n):
 #         print(matrix[i][j], end="")
 #     print()
 
-
-
-a = (1,2,3,4)
-b = (1,2,3,4)
-
-print(a is b)
-print(id(a))
-print(id(b))
-
 # import itertools
 
 # for i in itertools.count():

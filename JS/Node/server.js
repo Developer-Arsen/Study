@@ -127,10 +127,17 @@ app.post("/products", [upload.single('image')], async (req, res) => {
     }
 })
 
+app.get("/products/:id", async (req, res) => {
+    const { id } = req.params;
+
+    let result = await db.collection("products").findOne({ _id: new ObjectId(id) });
+    res.send(result);
+})
+
 app.delete("/products/:id", async (req, res) => {
     const { id } = req.params;
     let result = await db.collection("products").findOne({ _id: new ObjectId(id) });
-    const photodel = await db.collection("photos").deleteOne({ _id: result.photoId }); 
+    const photodel = await db.collection("photos").deleteOne({ _id: result.photoId });
     result = await db.collection("products").deleteOne({ _id: result._id });
     res.send("okay");
 })
@@ -145,6 +152,30 @@ app.get("/cdn/:id", async (req, res) => {
     } else {
         res.send("not okay");
     }
+});
+
+app.post("/cdn/:id", upload.single("image"), async (req, res) => {
+    const { id } = req.params;
+    const { image } = req.body;
+
+    const base64Data = image.replace(/^data:image\/\w+;base64,/, "");
+    const imgBuffer = Buffer.from(base64Data, 'base64');
+
+    const newImage = {
+        image: imgBuffer,
+        contentType: 'image/png'  // or extract content type dynamically
+    };
+
+    console.log(id);
+    const result = await db.collection("photos").updateOne({ _id: new ObjectId(id) }, { $set: { photo: imgBuffer } })
+    
+    // if (photo) {
+    //     res.setHeader("Content-Type", photo.photo.sub_type);
+    //     res.status(200).send(photo.photo.buffer);
+    // } else {
+    //     res.send("not okay");
+    // }
+    res.send("ok");
 });
 
 app.listen(PORT);
