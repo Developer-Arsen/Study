@@ -166,7 +166,6 @@ app.post("/cdn/:id", upload.single("image"), async (req, res) => {
         contentType: 'image/png'  // or extract content type dynamically
     };
 
-    console.log(id);
     const result = await db.collection("photos").updateOne({ _id: new ObjectId(id) }, { $set: { photo: imgBuffer } })
     
     // if (photo) {

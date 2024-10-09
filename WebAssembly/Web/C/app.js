@@ -14,11 +14,9 @@ document.getElementById('apply-blur').addEventListener('click', () => {
 
         const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
-        // Ensure the WebAssembly module is fully initialized
         Module.onRuntimeInitialized = () => {
             console.log("WebAssembly module initialized");
 
-            // Get the functions from the Module object
             const _malloc = Module._malloc;
             const _free = Module._free;
             const _gaussian_blur = Module._gaussian_blur;
@@ -36,7 +34,6 @@ document.getElementById('apply-blur').addEventListener('click', () => {
             _free(imagePtr);
             _free(outputPtr);
 
-            // Save the canvas as an image file
             const link = document.createElement('a');
             link.href = canvas.toDataURL('image/png');
             link.download = 'blurred_image.png';
@@ -44,7 +41,6 @@ document.getElementById('apply-blur').addEventListener('click', () => {
         };
 
         if (Module._gaussian_blur) {
-            // Module is already initialized
             Module.onRuntimeInitialized();
         }
     };

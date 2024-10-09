@@ -262,3 +262,78 @@ def sum(n):
 # 0 0 0 0 0    	2 3 2 1 0
 # M M 0 0 0  	M M 2 1 1 
 # 0 0 0 M 0   	2 2 2 M 1
+
+
+
+
+def greet(name, lastname, grt = "default "):
+    return name + " " + lastname + " " + grt
+
+def calc(cart,tax=10):
+    sum = 0
+    for item in cart:
+        sum += item + tax
+        
+    return sum
+
+cart = [10,20,30]
+print(calc(cart, tax=20))
+
+import math
+
+dict = {
+    "square": lambda x: x * x,
+    "circle": lambda radius: math.pi * radius ** 2,
+    "rectangle": lambda width, height:  width * height ,
+    "triangle": lambda base, height: base * height * 0.5
+}
+
+
+def calculate_area(shape, **kwargs):
+    vals = list(kwargs.values())
+    return dict[shape](*vals) if shape in dict else 0 
+
+temp_dict = {
+    "celsius_to_fahrenheit" : lambda c: (c * 9/5) + 32,
+    "fahrenheit_to_celsius" : lambda f: (f - 32) * 5/9,
+    "celsius_to_kelvin" : lambda c: c + 273.15,
+    "kelvin_to_celsius" : lambda k: k - 273.15,
+    "fahrenheit_to_kelvin" : lambda f: (f - 32) * 5/9 + 273.15,
+    "kelvin_to_fahrenheit" : lambda k: (k - 273.15) * 9/5 + 32,
+}
+
+
+def calculate_temp(temp, from_unit, to_unit):
+    str = from_unit + "_to_" + to_unit
+    return temp_dict[str](temp) if str in temp_dict else 0 
+
+
+res = map(lambda x: x * x , [1,2,3])
+res = filter(lambda x: x % 2 != 0, [1,2,4,5])
+
+ls_operations = {
+    "reverse": lambda ls : ls[::-1],
+    "double": lambda ls: list(map(lambda x: x*x, ls))
+}
+
+def transform_list(operand, list):
+    return ls_operations[operand](list) if operand in ls_operations else []
+
+
+text_dict = {
+    "upper": lambda str: str.upper(),
+    "lower": lambda str: str.lower(),
+    "replace": lambda str, old, new: str.replace(old, new) ,
+}
+
+def text_operations(text, operand, **kwargs):
+    vals = {"text": text }
+    vals = {**vals , **kwargs}
+    vals = list(vals.values())
+    return text_dict[operand](*vals) if operand in text_dict else []
+
+# print(text_operations("hello word", "replace", **{"old": "word", "new": "ahaa"}))
+
+z = set("123")
+z.add("45")
+print(z)
