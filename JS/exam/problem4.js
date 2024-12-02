@@ -1,4 +1,5 @@
 const countFractionOnes = (number) => {
+    if (typeof number != 'string' && !number.length) { return 0;}
     return number.slice(12).split('').filter(bit => bit == 1).length;;
 }
 
