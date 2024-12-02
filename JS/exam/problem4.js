@@ -1,6 +1,6 @@
 const countFractionOnes = (number) => {
     if (typeof number != 'string' && !number.length) { return 0;}
-    return number.slice(12).split('').filter(bit => bit == 1).length;;
+    return number.slice(12).split('').filter(bit => bit == 1).length;
 }
 
 console.log(countFractionOnes("1100000000011010000000000000000000000000000000000000000000000000"));
