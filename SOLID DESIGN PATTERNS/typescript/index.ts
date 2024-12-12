@@ -1,22 +1,35 @@
-interface Shape {
-  area(): number;
-  perimiter(): number;
+import Singleton from "./Creational/Singleton";
+
+console.log(Singleton());
+abstract class PaymentProcessor {
+  abstract processPayment(amount: number): void;
 }
 
-class Circle implements Shape {
-  constructor(private radius: number) {
-    this.radius = radius;
-  }
-
-  area(): number {
-    return Math.PI * this.radius * this.radius;
-  }
-
-  perimiter(): number {
-    return 2 * Math.PI * this.radius;
+class CreditCardProcessor extends PaymentProcessor {
+  processPayment(amount: number): void {
+    console.log(`Processing credit card payment - ${amount}`);
   }
 }
 
-const a = new Circle(2);
+class DebitCardProcessor extends PaymentProcessor {
+  processPayment(amount: number): void {
+    console.log(`Processing Debit card payment - ${amount}`);
+  }
+}
 
-console.log(a.area());
+class PayPalProcessor extends PaymentProcessor {
+  processPayment(amount: number): void {
+    console.log(`Processing Paypal card payment - ${amount}`);
+  }
+}
+
+function executePayments(
+  paymentProcessor: PaymentProcessor,
+  amount: number,
+): void {
+  paymentProcessor.processPayment(amount);
+}
+
+executePayments(new PayPalProcessor(), 100);
+executePayments(new DebitCardProcessor(), 200);
+executePayments(new CreditCardProcessor(), 300);
