@@ -3,62 +3,108 @@
 
 template<typename T>
 class Vector {
+    T* data;
+    size_t size;
+    size_t capacity;
 
-public:
-        using value_type = T;
-        using difference_type = std::ptrdiff_t;
-        using reference = value_type&;
-        using pointer = value_type*;
-        using size_type = size_t;
-        using const_reference = const reference;
+    public:
+        Vector() : size(0) , capacity(10) , data(new T[10]) {}
 
-    class const_interator {
-        public:
-            const_interator() : ptr{nullptr} {}
-            const_interator(const const_interator& rhv) { 
-                ptr = rhv.ptr;
-            } 
-            const_reference operator*() const {
-                return *ptr;
+        Vector(T& val) : Vector() {
+            data[size] = val;
+        }
+
+        Vector(std::initializer_list<T> list) : Vector() {
+            for (const auto &x : list) {
+                push_back(x);
             }
-            const pointer operator->() const {
-                return ptr;
-            }
+        }
 
-            const_reference operator [](size_type index) {
-                return ptr[index];
-            }
+        void push_back(const T& val) {
+            if (size == capacity) {
+                capacity *= 2;
 
-            // const const const_interator& operator+=(size_type ) {
-
-            // }
-            const_interator operator+(const size_type x) const {
-                return new const_interator{ ptr+ x};
-            }
-            difference_type operator-(const const_interator& rhv) const {
-                return ptr - rhv.ptr;
+                T* tmp = data;
+                data = new T[capacity];
+                for (size_t i  = 0 ; i < size; ++i) {
+                    data[i] = tmp[i];
+                }
+                delete [] tmp;
             }
 
-            bool operator<=>(const const_interator& rhv) const = default;
-        protected:
-            explicit const_interator(pointer p) : ptr(p) {}
-        private:
-            pointer ptr {nullptr};
-    };
+            data[size++] = val;
+        }
+
+        template<typename U>
+        friend std::ostream& operator <<(std::ostream& os, const Vector<U>& vec) {
+            os << "start";
+
+            for (size_t i = 0 ; i < vec.size; ++i) { 
+                os << vec.data[i] << ",";
+            }
+            os << "end" ;
+
+            return os;
+        }
     
+        class Iterator {
+            private:
+                T* vec_pointer;
+            public:
+                using iterator_category = std::random_access_iterator_tag;
+                using value_type = T;
+                using reference = value_type&;
+                using pointer = value_type*;
+                using difference_type = std::ptrdiff_t;
+                using size_type = size_t;
 
-    class iterator: public const_interator {
-        private:
-            friend Vector<T> vec;
-        public:
-            iterator() : const_interator {
+                Iterator(T* ptr) : vec_pointer(ptr) {}
 
-            }
-    };
+                reference operator*() {
+                    return *vec_pointer;
+                }
+
+                Iterator& operator++() {
+                    vec_pointer++;
+                    return *this;
+                }
+
+                Iterator operator++(int) {
+                    Iterator tmp = *this;
+                    ++(*this);
+                    return tmp;
+                }
+                
+                bool operator !=(const Iterator& other) {
+                    return vec_pointer != other.vec_pointer;
+                }
+
+                reference operator [](size_type index ) const {
+                    return data[index];
+                }
+        };
+
+        Iterator begin() {
+            return Iterator(data);
+        }
+        
+        Iterator end() {
+            return Iterator(data+size);
+        }
 
 };
 
-
 int main () {
+
+    Vector<int> vec{1,2,4};
+
+    for (const auto& item : vec) {
+        vec.push_back(10);
+        std::cout << item << std::endl;
+    }
+
+    std::cout << vec[1] << std::endl;
+
+
 
 }

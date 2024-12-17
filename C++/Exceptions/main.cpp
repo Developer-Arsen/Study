@@ -1,24 +1,50 @@
 #include <iostream>
 #include <stdexcept>
+class Qyastm : public std::logic_error {
+    public:
+        Qyastm(const std::string& msg) : std::logic_error(msg) {}
+        Qyastm(const char * msg) : std::logic_error(msg) {}
+        virtual ~Qyastm() = default;
+
+        const  char * what() const noexcept override  {
+            return "hello hello";
+        }
+
+};
+
+class A
+{
+public:
+    A(/* args */)=default;
+    ~A() throw(std::runtime_error) {
+        throw std::runtime_error("hello");
+    };
+};
 
 void foo () {
-    throw 4;
+    A a;
 }
 
 void too () {
-    try {
-        foo();
-    } catch (int x) {
-        std::cout << "gotexeception" << std::endl;
-        throw;
-    }
+    foo();
+    throw 1;
 }
 
+
+
+
+
+
 int main () {
-    try {
-        too();
-    } catch (int x) {
-        std::cout << "mineeeeeeeeee" << std::endl;
-    } 
+   
+ try
+ {
+    foo();
+ }
+ catch(const std::runtime_error& e)
+ {
+    std::cerr << e.what() << '\n';
+ }
+ 
     
 }
