@@ -95,7 +95,10 @@
     "regex": "cpp",
     "stop_token": "cpp",
     "__string": "cpp",
-    "__mutex_base": "cpp"
+    "__mutex_base": "cpp",
+    "*.ipp": "cpp",
+    "__functional_base": "cpp",
+    "__memory": "cpp"
   },
   "C_Cpp.errorSquiggles": "disabled"
 }
