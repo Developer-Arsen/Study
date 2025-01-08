@@ -35,20 +35,18 @@ public:
 
             if (nums[middle] == target)
             {
-                return middle;
+                start = middle;
             }
             else if (nums[middle] < target)
             {
-                std::cout << "here" << middle << std::endl;
                 start = middle + 1;
             }
             else if (nums[middle] > target)
             {
-                std::cout << "here -1" << std::endl;
                 end = middle - 1;
             }
         }
-        return middle;
+        return start == 0;
     }
 };
 
