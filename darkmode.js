@@ -1,5 +1,6 @@
 (function() {
-    'use strict';
+    'use strict';  
+    
 
     // Set background to black
     document.body.style.backgroundColor = "#000000";  // Pure black background
