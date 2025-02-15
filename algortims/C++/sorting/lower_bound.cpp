@@ -21,7 +21,7 @@ size_t lower_bound(T (&arr)[N], T target) {
         }
     }
    
-    return start;
+    return start;   
 }
 
 int main () {
