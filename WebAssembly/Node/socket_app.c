@@ -8,7 +8,6 @@
 #define PORT 3006
 #define SERVER_ADDR "127.0.0.1"
 
-// Function to send data to the server
 EMSCRIPTEN_KEEPALIVE
 void send_data(const char *message) {
     int sock = socket(AF_INET, SOCK_STREAM, 0);
@@ -40,7 +39,6 @@ void send_data(const char *message) {
     close(sock);
 }
 
-// Dummy function to initialize WebAssembly module
 EMSCRIPTEN_KEEPALIVE
 void init() {
     printf("WebAssembly Module Initialized\n");

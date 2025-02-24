@@ -47,3 +47,50 @@
 // console.log(person1.name); // Output: "Alice"
 
 // person1.greet(); // Output: "Hello, my name is Alice and I am 25 years old."
+
+// const test = () => {
+//   return function a(...args) {
+//     if (args.length >= 4) return args.reduce((acc, x) => acc + x, 0);
+
+//     return (arg) => a(...args, arg);
+//   };
+// };
+
+// const b = test();
+// console.log(b(12)(22)(3)(4));
+
+// function limitCountParmas(...args) {
+//   if (args.length == 4) {
+//     return args.slice(0, 4).reduce((aggr, value) => aggr + value, 0);
+//   }
+//   return function (...currnetArgs) {
+//     return limitCountParmas(...args, ...currnetArgs);
+//   };
+// }
+// console.log(limitCountParmas(1)(2)(3)(4));
+
+const test = () => {
+  let x = 0;
+  const add = () => x++;
+  const sub = () => x--;
+  return {
+    add,
+    sub,
+  };
+};
+
+// let a = test();
+// console.log(a.add());
+// console.log(a.add());
+// console.log(a.add());
+
+// console.log(a.subtract());
+// console.log(a.subtract());
+// console.log(a.subtract());
+const { add, sub } = test();
+console.log(add());
+console.log(add());
+console.log(add());
+console.log(sub());
+console.log(sub());
+console.log(sub());

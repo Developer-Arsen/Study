@@ -1,6 +1,5 @@
 const net = require('net');
 
-// Create TCP server on port 3006
 const server = net.createServer((socket) => {
     console.log('Client connected');
 
