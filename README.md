@@ -12,9 +12,9 @@
   <a> <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Jest.svg" alt="mysql" width="40" height="40"/> </a> 
 <a> <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/React-Dark.svg" alt="bash" width="40" height="40"/> </a>
 <a> <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Docker.svg" alt="bash" width="40" height="40"/> </a>
- <a> <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/IPFS-Dark.svg" alt="bash" width="40" height="40"/> </a>
 <a> <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Bash-Dark.svg" alt="bash" width="40" height="40"/> </a>
 <a> <img src="https://github.com/tandpfun/skill-icons/blob/main/icons/Prisma.svg" alt="linux" style="border-radius: 30%;" width="40" height="40"/> </a> </p>
+<a> <img src="https://avatars.githubusercontent.com/u/5009934?s=48&v=4" alt="linux" style="border-radius: 30%;" width="40" height="40"/> </a> </p>
 
 # :bar_chart: GitHub Stats:
 
