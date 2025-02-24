@@ -18,7 +18,7 @@
 
 # :bar_chart: GitHub Stats:
 
--<img align="right" height="150" src="https://media.tenor.com/4HkLW40pwKgAAAAi/patrick-patrick-star.gif"  /> -
+<!-- -<img align="right" height="150" src="https://media.tenor.com/4HkLW40pwKgAAAAi/patrick-patrick-star.gif"  /> - -->
 
 <div align="center">
   <img src="https://github-readme-stats.vercel.app/api?username=Developer-Arsen&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=github_dark&locale=en&hide_border=false" height="150" alt="stats graph"  />
