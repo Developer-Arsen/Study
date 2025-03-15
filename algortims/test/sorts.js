@@ -367,7 +367,7 @@
 //   if (leftI < n && arr[leftI] < arr[largestIndex]) {
 //     largestIndex = leftI;
 //   }
-//   if (rightI < n && arr[rightI] < arr[largestIndex]) {
+//   if (rightI < n && a       rr[rightI] < arr[largestIndex]) {
 //     largestIndex = rightI;
 //   }
 //   if (i != largestIndex) {
@@ -515,7 +515,7 @@ class PriorityQueue {
   constructor(size = 0, comparator = (a, b) => a - b) {
     this.heap = new Array(size).fill(0);
     this.cmp = comparator;
-  }
+  } 
 
   getSize() {
     return this.heap.length;

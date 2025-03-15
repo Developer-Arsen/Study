@@ -1,96 +1,63 @@
-// new Promise((res, rej) => {
-//   rej(1);
-// })
-//   .catch((msg) => console.log(msg))
-//   .then((msg) => console.log(msg));
-
-// Promise.resolve()
-//   .then(() => {
-//     throw new Error();
-//   })
-//   .catch(() => console.log(65))
-//   .then(() => {
-//     console.log(5);
-//   });
-
-// for (key in null) {
-//   console.log(key);
-// }
-// (async () => {
-//   const sleep = async (delay) => {
-//     return new Promise((res, rej) => {
-//       setTimeout(() => {
-//         res(console.log("sleep"));
-//       }, delay);
-//     });
-//   };
-
-//   console.log("start");
-//   await sleep(2000);
-//   console.log("end");
-// })();
-
-// function Person(name, age) {
-//   this.name = name;
-//   this.age = age;
-//   this.greet = function () {
-//     console.log(
-//       `Hello, my name is ${this.name} and I am ${this.age} years old.`
-//     );
-//   };
+// function add(a, b) {
+//   return a + b;
 // }
 
-// const person1 = Person("Alice", 25);
-// console.log(person1)
-// // const person2 = new Person("Bob", 30);
-
-// console.log(person1.name); // Output: "Alice"
-
-// person1.greet(); // Output: "Hello, my name is Alice and I am 25 years old."
-
-// const test = () => {
-//   return function a(...args) {
-//     if (args.length >= 4) return args.reduce((acc, x) => acc + x, 0);
-
-//     return (arg) => a(...args, arg);
-//   };
-// };
-
-// const b = test();
-// console.log(b(12)(22)(3)(4));
-
-// function limitCountParmas(...args) {
-//   if (args.length == 4) {
-//     return args.slice(0, 4).reduce((aggr, value) => aggr + value, 0);
+// function run() {
+//   for (let i = 500_000; i < 1_000_000; i++) {
+//     add(i, i + 1); // Optimized 🚀
 //   }
-//   return function (...currnetArgs) {
-//     return limitCountParmas(...args, ...currnetArgs);
-//   };
+
+//   add("3", "4"); // ❌ Deoptimization! Different argument types
 // }
-// console.log(limitCountParmas(1)(2)(3)(4));
 
-const test = () => {
-  let x = 0;
-  const add = () => x++;
-  const sub = () => x--;
-  return {
-    add,
-    sub,
+// let arsen = () => {};
+
+// arsen();
+// run();
+
+const Tarjan = (edges) => {
+  const len = edges.len;
+  const graph = new Array(len).fill(null).map(() => []);
+  const disc = new Array(len).fill(0);
+  const ll = new Array(len).fill(-1);
+  const stack = new Array(len).fill(0);
+  const res = [];
+  const onStack = [];
+
+  for (const [u, v] of edges) {
+    graph[u].push(v);
+  }
+  let id = 0;
+  const dfs = (u) => {
+    if (disc[u]) return;
+    disc[u] = ll[u] = id++;
+    onStack[u] = 1;
+    stack.push(u);
+
+    for (const v of graph[u]) {
+      if (!disc[v]) {
+        dfs(v);
+        ll[u] = Math.min(ll[u], ll[v]);
+      }
+      else if (onStack[v]) {
+        ll[u] = Math.min(ll[u], ll[v]);
+      }
+    }
+    if (ll[u] == disc[u]) {
+      let tmp = [];
+      while (stack.length) {
+        const num = stack.pop();
+        tmp.push(num);
+        if (num == u) break;
+      }
+      res.push(tmp);
+    }
   };
+
+  for (let i = 0; i < len; ++i) {
+    if (!disc[i]) {
+      dfs(i);
+    }
+  }
+  return res;
 };
-
-// let a = test();
-// console.log(a.add());
-// console.log(a.add());
-// console.log(a.add());
-
-// console.log(a.subtract());
-// console.log(a.subtract());
-// console.log(a.subtract());
-const { add, sub } = test();
-console.log(add());
-console.log(add());
-console.log(add());
-console.log(sub());
-console.log(sub());
-console.log(sub());
